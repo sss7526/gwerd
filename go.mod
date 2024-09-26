@@ -2,10 +2,13 @@ module github.com/sss7526/gwerd
 
 go 1.23.1
 
-require github.com/chromedp/chromedp v0.10.0
+require (
+	github.com/chromedp/cdproto v0.0.0-20240801214329-3f85d328b335
+	github.com/chromedp/chromedp v0.10.0
+	github.com/sss7526/goparse v0.0.0-20240924012710-be020382d3c4
+)
 
 require (
-	github.com/chromedp/cdproto v0.0.0-20240801214329-3f85d328b335 // indirect
 	github.com/chromedp/sysutil v1.0.0 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
