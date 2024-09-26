@@ -13,7 +13,7 @@ import (
 
 func Translate(srcLang, outLang string, texts []string, verbose bool) {
 	for _, text := range texts {
-		err := doTranslate(srcLang, outLang, texts, verbose)
+		err := doTranslate(srcLang, outLang, text, verbose)
 		if err != nil {
 			fmt.Printf("Error performing translation for text: %s\nError: %v", text, err)
 		}
@@ -21,7 +21,7 @@ func Translate(srcLang, outLang string, texts []string, verbose bool) {
 }
 
 // doTranslate handles Google Translate interaction using chromedp
-func doTranslate(srcLang, outLang string, text []string, verbose bool) error {
+func doTranslate(srcLang, outLang string, text string, verbose bool) error {
 	keywordsToBlock := []string{"ads", "tracking", "analytics", "adservice", "counter", "track", "guestbook"}
 
 	blockedURLS := []string{}
