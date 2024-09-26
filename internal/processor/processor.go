@@ -118,7 +118,7 @@ func doTranslate(srcLang, outLang string, text string, verbose bool) error {
 	}
 
 	// Output the translation to the terminal
-	fmt.Printf("Translated Text: %s\n", translatedText)
+	fmt.Printf("%s\n", translatedText)
 
 	return nil
 }

@@ -21,9 +21,9 @@ func ParseArgs() (map[string]interface{}) {
 	parser.AddArgument("list", "l", "list-langs", "List available language codes", "bool", false)
 
 
-	parser.AddExclusiveGroup([]string{"list", "source-lang"}, true)
-	parser.AddExclusiveGroup([]string{"list", "output-lang"}, true)
-	parser.AddExclusiveGroup([]string{"list", "engine"}, true)
+	// parser.AddExclusiveGroup([]string{"list", "source-lang"}, true)
+	// parser.AddExclusiveGroup([]string{"list", "output-lang"}, true)
+	// parser.AddExclusiveGroup([]string{"list", "engine"}, true)
 
 	parsedArgs, shouldExit, err := parser.Parse()
 	if err != nil {
