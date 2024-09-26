@@ -14,11 +14,11 @@ func ParseArgs() (map[string]interface{}) {
 	)
 
 	parser.AddArgument("verbose", "v", "verbose", "Increase verbosity, shows http requests/responses and allowed/blocked status", "bool", false)
-	parser.AddArgument("source-lang", "-s", "--source-lang", "Source language to translate from. Ex: -s en", "string", true)
-	parser.AddArgument("output-lang", "-o", "--output-lang", "Target language to translate to. Ex: -o fr", "string", true)
-	parser.AddArgument("text", "-t", "--text", "One or more strings (enclosed in double quotes) to translate. Ex: -t \"<your phrase>\"", "[]string", true)
-	parser.AddArgument("engine", "-e", "--engine", "Translation engine to run against (Google, DeePL, Bing, etc). Ex: -e google", "string", false)
-	parser.AddArgument("list", "-l", "--list-langs", "List available language codes", "bool", false)
+	parser.AddArgument("source-lang", "s", "source-lang", "Source language to translate from. Ex: -s en", "string", true)
+	parser.AddArgument("output-lang", "o", "output-lang", "Target language to translate to. Ex: -o fr", "string", true)
+	parser.AddArgument("text", "t", "text", "One or more strings (enclosed in double quotes) to translate. Ex: -t \"<your phrase>\"", "[]string", true)
+	parser.AddArgument("engine", "e", "engine", "Translation engine to run against (Google, DeePL, Bing, etc). Ex: -e google", "string", false)
+	parser.AddArgument("list", "l", "list-langs", "List available language codes", "bool", false)
 
 	parsedArgs, shouldExit, err := parser.Parse()
 	if err != nil {
