@@ -11,6 +11,7 @@ package main
 	   // "github.com/chromedp/chromedp"
       "github.com/sss7526/gwerd/internal/cli"
       "github.com/sss7526/gwerd/internal/processor"
+      "github.com/sss7526/gwerd/internal/constants"
    )
 
 func main() {
@@ -43,7 +44,7 @@ func main() {
 // listLanguages prints available languages
 func listLanguages() {
 	fmt.Println("Available Languages:")
-	for code, name := range languageCodes {
+	for code, name := range constants.LanguageCodes {
 		fmt.Printf("%s: %s\n", code, name)
 	}
 }

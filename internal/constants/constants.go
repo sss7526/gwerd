@@ -1,7 +1,7 @@
-package main
+package constants
 
 // Mapping of language codes for --list-langs flag
-var languageCodes = map[string]string{
+var LanguageCodes = map[string]string{
     "af": "Afrikaans",
     "sq": "Albanian",
     "am": "Amharic",

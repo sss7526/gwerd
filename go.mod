@@ -3,7 +3,7 @@ module github.com/sss7526/gwerd
 go 1.23.1
 
 require (
-	github.com/chromedp/cdproto v0.0.0-20240801214329-3f85d328b335
+	github.com/chromedp/cdproto v0.0.0-20240919203636-12af5e8a671f
 	github.com/chromedp/chromedp v0.10.0
 	github.com/sss7526/goparse v0.0.0-20240924012710-be020382d3c4
 )
