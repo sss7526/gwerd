@@ -20,11 +20,10 @@ func ParseArgs() (map[string]interface{}) {
 	parser.AddArgument("engine", "e", "engine", "Translation engine to run against (Google, DeePL, Bing, etc). Ex: -e google", "string", false)
 	parser.AddArgument("list", "l", "list-langs", "List available language codes", "bool", false)
 
-	parser.AddExclusiveGroup([]string{"targets", "engine"}, false)
 
-	parser.AddExclusiveGroup([]string{"list", "source-lang"}, true)
-	parser.AddExclusiveGroup([]string{"list", "output-lang"}, true)
-	parser.AddExclusiveGroup([]string{"list", "engine"}, true)
+	// parser.AddExclusiveGroup([]string{"list", "source-lang"}, true)
+	// parser.AddExclusiveGroup([]string{"list", "output-lang"}, true)
+	// parser.AddExclusiveGroup([]string{"list", "engine"}, true)
 
 	parsedArgs, shouldExit, err := parser.Parse()
 	if err != nil {
