@@ -1,5 +1,5 @@
 APP_NAME := gwerd
-VERSION := 1.0.0
+VERSION := 1.0.1
 ARCH := amd64
 BUILD_DIR := build
 PACKAGING_DIR := $(BUILD_DIR)/debian
