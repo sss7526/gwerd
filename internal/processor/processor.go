@@ -12,11 +12,16 @@ import (
 )
 
 func Translate(srcLang, outLang string, texts []string, verbose bool) {
-	for _, text := range texts {
-		err := doTranslate(srcLang, outLang, text, verbose)
-		if err != nil {
-			fmt.Printf("Error performing translation for text: %s\nError: %v", text, err)
+	
+	if outLang != "" {
+		for _, text := range texts {
+			err := doTranslate(srcLang, outLang, text, verbose)
+			if err != nil {
+				fmt.Printf("Error performing translation for text: %s\nError: %v", text, err)
+			}
 		}
+	} else {
+		fmt.Println("No output language specified.")
 	}
 }
 
@@ -110,6 +115,7 @@ func doTranslate(srcLang, outLang string, text string, verbose bool) error {
 		}),
 		chromedp.Navigate(translateURL),
 		chromedp.WaitReady("body"), // Wait until the translation element is visible
+		chromedp.Sleep(5 * time.Second),
 		chromedp.Text(`span.ryNqvb`, &translatedText, chromedp.ByQuery), // Select the translated text
 	)
 

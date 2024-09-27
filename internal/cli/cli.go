@@ -14,14 +14,15 @@ func ParseArgs() (map[string]interface{}) {
 	)
 
 	parser.AddArgument("verbose", "v", "verbose", "Increase verbosity, shows http requests/responses and allowed/blocked status", "bool", false)
-	parser.AddArgument("source-lang", "s", "source-lang", "Source language to translate from. Ex: -s en", "string", false)
-	parser.AddArgument("output-lang", "o", "output-lang", "Target language to translate to. Ex: -o fr", "string", false)
+	parser.AddArgument("source-lang", "s", "source-lang", "Source language to translate from. Ex: -s en", "string", false, "auto")
+	parser.AddArgument("output-lang", "o", "output-lang", "Target language to translate to. Ex: -o fr", "string", true)
 	parser.AddArgument("text", "t", "text", "One or more strings (enclosed in double quotes) to translate. Ex: -t \"<your phrase>\"", "[]string", false)
 	parser.AddArgument("engine", "e", "engine", "Translation engine to run against (Google, DeePL, Bing, etc). Ex: -e google", "string", false)
 	parser.AddArgument("list", "l", "list-langs", "List available language codes", "bool", false)
+	parser.AddArgument("file", "f", "file", "Reads in strings to translate from file, must use with mode flags to translate the lines separately or the whole block of text", "string", false)
+	parser.AddArgument("block", "b", "block-mode", "If specified, translates the entire file as a single block. If not specified, translates each line as a separate phrase", "bool", false)
 
-
-	// parser.AddExclusiveGroup([]string{"list", "source-lang"}, true)
+	parser.AddExclusiveGroup([]string{"target", "file"}, true)
 	// parser.AddExclusiveGroup([]string{"list", "output-lang"}, true)
 	// parser.AddExclusiveGroup([]string{"list", "engine"}, true)
 
