@@ -17,7 +17,7 @@ func Translate(srcLang, outLang string, texts []string, verbose bool) {
 		for _, text := range texts {
 			err := doTranslate(srcLang, outLang, text, verbose)
 			if err != nil {
-				fmt.Printf("Error performing translation for text: %s\nError: %v", text, err)
+				fmt.Printf("Error performing translation for text. Error: %v", err)
 			}
 		}
 	} else {
@@ -27,6 +27,10 @@ func Translate(srcLang, outLang string, texts []string, verbose bool) {
 
 // doTranslate handles Google Translate interaction using chromedp
 func doTranslate(srcLang, outLang string, text string, verbose bool) error {
+	if len(text) > 6000 {
+		fmt.Printf("%d", len(text))
+		return fmt.Errorf("5000 character limit per translation")
+	}
 	keywordsToBlock := []string{"ads", "tracking", "analytics", "adservice", "counter", "track", "guestbook"}
 
 	blockedURLS := []string{}
@@ -34,7 +38,7 @@ func doTranslate(srcLang, outLang string, text string, verbose bool) error {
 		blockedURLS = append(blockedURLS, fmt.Sprintf("*%s*", keyword))
 	}
 
-	userAgent := "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebkit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+	userAgent := "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebkit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
 	referrer := "https://www.google.com"
 
 	opts := append(
@@ -51,7 +55,6 @@ func doTranslate(srcLang, outLang string, text string, verbose bool) error {
 
 	// Build the Google Translate URL
 	translateURL := fmt.Sprintf("https://translate.google.com/?sl=%s&tl=%s&text=%s&op=translate", srcLang, outLang, text)
-	fmt.Printf("Requesting: %s\n", translateURL)
 
 	// Create context with timeout
 	allocCtx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
@@ -103,9 +106,8 @@ func doTranslate(srcLang, outLang string, text string, verbose bool) error {
 		}
 	})
 
-	var translatedText string
+	var translatedTexts []string
 
-	// Run chromedp tasks
 	err = chromedp.Run(ctx,
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			headers := make(map[string]interface{})
@@ -114,17 +116,19 @@ func doTranslate(srcLang, outLang string, text string, verbose bool) error {
 			return network.SetExtraHTTPHeaders(network.Headers(headers)).Do(ctx)
 		}),
 		chromedp.Navigate(translateURL),
-		chromedp.WaitReady("body"), // Wait until the translation element is visible
+		chromedp.WaitReady("body"), 
 		chromedp.Sleep(5 * time.Second),
-		chromedp.Text(`span.ryNqvb`, &translatedText, chromedp.ByQuery), // Select the translated text
+		
+		chromedp.Evaluate(`Array.from(document.querySelectorAll('span.ryNqvb')).map(el => el.innerText)`, &translatedTexts),
 	)
 
 	if err != nil {
 		log.Fatalf("Failed to extract translated text: %v\n", err)
 	}
+	
+	translatedText := strings.Join(translatedTexts, "\n")
 
-	// Output the translation to the terminal
-	fmt.Printf("%s\n", translatedText)
+	fmt.Printf("%v\n", translatedText)
 
 	return nil
 }
